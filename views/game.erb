@@ -1,4 +1,25 @@
 <h4> <%= session[:player_name] %></h4>
-
-<%= session[:player_cards] %>
+<h5> <%= session[:winner] %></h5>
+<% session[:player_cards].each do |card| %>
+<img src="<%= show_card(card) %>">
+<% end %>
 <div>Your total is <%= calculate_total(session[:player_cards]) %></div>
+
+<br>
+<form action="player_hit" method="post">
+<input type="submit" text="Hit" value="Hit" name="player_decision">
+</form>
+<form action="player_stand" method="post">
+<input type="submit" text="Stand" value="Stand" name="player_decision">
+</form>
+<div>The dealer has:<br>
+<% if session[:dealer_status]=="playing" %>
+<img src="<%= show_card(session[:dealer_cards][0]) %>">
+<% else %>
+<% session[:dealer_cards].each do |card| %>
+<img src="<%= show_card(card) %>">
+<% end %>
+<% end %>
+</div>
+
+
